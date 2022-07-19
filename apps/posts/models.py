@@ -13,10 +13,7 @@ class Post(TimeStampedUUIDModel):
     reaction = models.ManyToManyField(AUTH_USER_MODEL, related_name=_("liked_posts"), blank=True)
 
     def get_total_likes(self):
-        return self.likes.users.count()
-
-    def get_total_unlikes(self):
-        return self.unlikes.users.count()
+        return self.likes.user.count()
 
     def __str__(self):
         return str(self.post)[:30]
