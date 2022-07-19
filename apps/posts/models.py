@@ -19,4 +19,4 @@ class Post(TimeStampedUUIDModel):
         return self.unlikes.users.count()
 
     def __str__(self):
-        return str(self.comment)[:30]
+        return str(self.post)[:30]
