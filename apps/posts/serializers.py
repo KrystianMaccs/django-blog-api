@@ -1,22 +1,24 @@
 from rest_framework import serializers
 
-from apps.posts.models import Post
-from apps.users.serializers import UserSerializer
+from posts.models import Post
+from users.serializers import UserSerializer
 
 
 class PostSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer(read_only=True)
+    author = UserSerializer(read_only=True)
 
+    likes = UserSerializer(read_only=True, many=True)
 
     class Meta:
         model = Post
         fields = (
             "id",
-            "user",
+            "author",
             "title",
             "content",
-            "created_at",
+            "posted_on",
+            "likes",
         )
         extra_kwargs = {
             "posted_on": {
