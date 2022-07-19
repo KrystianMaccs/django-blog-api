@@ -21,7 +21,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
     ip_address = models.GenericIPAddressField(protocol="both", blank=False)
     country = CountryField(verbose_name=_("Country"), default="US", blank=False, null=False)
-    country_geoname_id = models.IntegerField()
+    country_code = models.CharField(max_length=5, null=True, blank=True)
+    country_geoname_id = models.IntegerField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+    latitude = models.FloatField(null=True, blank=True)
     joined_on_holiday = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
