@@ -3,6 +3,7 @@ import uuid
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from django_countries.fields import CountryField
 from django.utils.translation import gettext_lazy as _
 
 from .managers import CustomUserManager
@@ -19,6 +20,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
     ip_address = models.GenericIPAddressField(protocol="both", blank=False)
+    country = CountryField(verbose_name=_("Country"), default="US", blank=False, null=False)
+    country_geoname_id = models.IntegerField()
+    joined_on_holiday = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "first_name", "last_name"]
