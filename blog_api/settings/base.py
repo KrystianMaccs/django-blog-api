@@ -50,7 +50,8 @@ SITE_ID = 1
 
 LOCAL_APPS = [
         "apps.common",
-        "apps.users"
+        "apps.users",
+        "apps.posts",
 ]
 
 THIRD_PARTY_APPS = [
