@@ -3,7 +3,7 @@
 # Tradecore-Test-task
 ## Prerequisites
 
- - Python:3.8.5
+ - Python:3.10.4
  - Redis
 
 ## Setup
