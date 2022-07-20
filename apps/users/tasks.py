@@ -1,4 +1,6 @@
-from ipaddress import ip_address
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from django.contrib.auth import get_user_model
 
 from celery import shared_task
@@ -30,3 +32,16 @@ def enrich_user(user_pk):
     if holiday_details is not None and any(holiday_details):
         user.joined_on_holiday = True
         user.save(update_fields=("joined_on_holiday",))
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        User.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    if instance.joined_on_holiday == False:
+        instance.joined_on_holiday = True
+        instance.save()
