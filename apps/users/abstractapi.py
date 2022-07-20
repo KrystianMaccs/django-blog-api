@@ -1,10 +1,12 @@
 import os
 
+from blog_api.settings.base import env
+
 import requests
 
 class AbstractAPI(object):
-    HOLIDAYS_API_KEY = os.environ.get("HOLIDAYS_API_KEY")
-    IP_GEOLOCATION_API_KEY = os.environ.get("IP_GEOLOCATION_API_KEY")
+    HOLIDAYS_API_KEY = env("HOLIDAYS_API_KEY")
+    IP_GEOLOCATION_API_KEY = env("IP_GEOLOCATION_API_KEY")
 
 
     def get_holiday_details(self, country_code, year, month, day):

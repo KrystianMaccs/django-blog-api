@@ -12,10 +12,9 @@ User = get_user_model()
 class SignupView(generics.CreateAPIView):
 
     serializer_class = SignupSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(ip_address=self.request.META["REMOTE_ADDR"])
-
+    
+    """def perform_create(self, serializer):
+        serializer.save(ip_address=self.request.META["REMOTE_ADDR"])"""
 
 
 class UserDetailView(generics.RetrieveAPIView):

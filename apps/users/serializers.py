@@ -19,6 +19,7 @@ class SignupSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "email",
+            "username",
             "first_name",
             "last_name",
             "password",
@@ -41,10 +42,10 @@ class SignupSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(
             email=validated_data["email"],
+            username=validated_data["username"],
             password=validated_data["password"],
             first_name=validated_data["first_name"],
             last_name=validated_data["last_name"],
-            ip_address=validated_data["ip_address"],
         )
         enrich_user.delay(user.pk)
 

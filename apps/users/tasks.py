@@ -6,6 +6,8 @@ from django.contrib.auth import get_user_model
 from celery import shared_task
 from apps.users.abstractapi import AbstractAPI
 
+from apps.profiles.models import Profile
+
 User = get_user_model()
 
 @shared_task
@@ -33,7 +35,7 @@ def enrich_user(user):
         user.save(update_fields=("joined_on_holiday",))
 
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=Profile)
 def save_user_profile(sender, instance, **kwargs):
     created = kwargs.get("created")
     if created:
