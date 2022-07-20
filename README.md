@@ -1,6 +1,5 @@
 # django-blog-api
 
-# Tradecore-Test-task
 ## Prerequisites
 
  - Python:3.10.4
