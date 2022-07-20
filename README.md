@@ -111,3 +111,8 @@ Method: `GET`
 ```
 CELERY_ALWAYS_EAGER=True IP_GEOLOCATION_API_KEY=XXXX HOLIDAYS_API_KEY=XXXX python manage.py test
 ```
+Merge branch 'master' of https://github.com/KrystianMaccs/django-blog-api
+# Please enter a commit message to explain why this merge is necessary, especially if it merges an updated upstream into a topic 
+# branch.
+#
+# Lines starting with '#' will be ignored, and an empty message aborts the commit.

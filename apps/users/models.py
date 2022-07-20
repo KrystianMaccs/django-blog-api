@@ -19,13 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
-    ip_address = models.GenericIPAddressField(protocol="both", blank=True, null=True)
     country = CountryField(verbose_name=_("Country"), default="US", blank=False, null=False)
-    country_code = models.CharField(max_length=5, null=True, blank=True)
-    country_geoname_id = models.IntegerField(null=True, blank=True)
-    longitude = models.FloatField(null=True, blank=True)
-    latitude = models.FloatField(null=True, blank=True)
-    joined_on_holiday = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "first_name", "last_name"]

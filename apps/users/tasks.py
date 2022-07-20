@@ -9,8 +9,7 @@ from apps.users.abstractapi import AbstractAPI
 User = get_user_model()
 
 @shared_task
-def enrich_user(user_pk):
-    user = User.objects.get(pk=user_pk)
+def enrich_user(user):
     api = AbstractAPI()
 
     location_details = api.get_geolocation_details(ip_address=user.ip_address)
@@ -35,13 +34,7 @@ def enrich_user(user_pk):
 
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        User.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    if instance.joined_on_holiday == False:
-        instance.joined_on_holiday = True
-        instance.save()
+    created = kwargs.get("created")
+    if created:
+        enrich_user(instance)
