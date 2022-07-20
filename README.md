@@ -17,7 +17,7 @@ $ source env/bin/activate
 
 After activating the environment, run below command where    `requirements.txt` is present, to install the dependencies.
 
-``` (venv)$ pip install -r requirements.txt ```
+``` (env)$ pip install -r requirements.txt ```
 
 Run below commands inside the root directory(where `manage.py` is present) of the project.
 For migrations, `python manage.py migrate`
