@@ -1,3 +1,5 @@
+import logging
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -8,6 +10,7 @@ from apps.users.abstractapi import AbstractAPI
 
 from apps.profiles.models import Profile
 
+logger = logging.getLogger("users.tasks")
 User = get_user_model()
 
 @shared_task
@@ -29,6 +32,7 @@ def enrich_user(user):
         month=user.date_joined.month,
         year=user.date_joined.year,
     )
+    logger.info("Updated location details for {user}".format(user=user))
 
     if holiday_details is not None and any(holiday_details):
         user.joined_on_holiday = True
