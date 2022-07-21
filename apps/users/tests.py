@@ -22,14 +22,12 @@ class UserTest(APITestCase):
         }
         response = self.client.post(reverse('signup'), data=data, REMOTE_ADDR='54.182.0.19')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        user = User.objects.first()
+        user = UserFactory.objects.first()
         self.assertEqual(user.email, data["email"])
-        self.assertEqual(user.ip_address, '54.182.0.19')
-        self.assertEqual(user.country_code, 'US')
 
     def test_get_user_access_token(self):
         password = 'Ab@123'
-        user = UserFactory(email='abc@gmail.com', password=make_password(password))
+        user = User(email='abc@gmail.com', password=make_password(password))
         user.set_password(password)
         response = self.client.post(reverse('token_obtain'), data={"email": user.email, "password": password})
         self.assertEqual(response.status_code, status.HTTP_200_OK)

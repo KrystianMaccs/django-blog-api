@@ -25,13 +25,12 @@ class PostTest(APITestCase):
     def test_post_create(self):
         self.assertEqual(Post.objects.count(), 0)
         data = {
-            "title": "My Post",
-            "content": "My Content."
+            "post": "My Post"
         }
         response = self.client.post(reverse('post-list'), data=data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         post = Post.objects.get(id=response.data["id"])
-        self.assertEqual(post.title, data["title"])
+        self.assertEqual(post.title, data["post"])
         self.assertEqual(post.author, self.user)
 
     def test_post_detail(self):
@@ -43,13 +42,13 @@ class PostTest(APITestCase):
     def test_post_update(self):
         post = PostFactory()
         data = {
-            "title": "New Title"
+            "post": "New Title"
         }
-        self.assertNotEqual(post.id, data["title"])
+        self.assertNotEqual(post.id, data["post"])
         response = self.client.patch(reverse('post-detail', args=(post.id,)), data=data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         post = Post.objects.get(id=post.id)
-        self.assertEqual(post.title, data["title"])
+        self.assertEqual(post.title, data["post"])
 
     def test_post_delete(self):
         post = PostFactory()

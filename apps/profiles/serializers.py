@@ -13,9 +13,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
 
     def create(self, validated_data):
-        profile = Profile.objects.create_user(
-            ip_address=validated_data["ip_address"],
-        )
+        profile = Profile.objects.create_user(ip_address=validated_data["ip_address"],)
         enrich_user.delay(profile.pk)
 
         return profile
